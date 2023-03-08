@@ -14,3 +14,14 @@
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__button-add/profile__button-add.css);
 
+@import url(../blocks/elements-grid/elements-grid.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__picture/element__picture.css);
+@import url(../blocks/element/__countries/elemet__countries.css);
+@import url(../blocks/element/__caption/element__caption.css);
+@import url(../blocks/element/__button-like/element__button-like.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__name/footer__name.css);
+
+
