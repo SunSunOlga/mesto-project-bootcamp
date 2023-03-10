@@ -23,10 +23,15 @@
   }
 }
 
+@media screen and (max-width: 568px) {
+  .profile {
+    max-width: 400px;
+    align-items: center;
+  }
+}
 
 @media screen and (max-width: 320px) {
   .profile {
-    align-items: center;
     max-width: 282px;
     padding: 42px 19px 36px 19px;
   }
