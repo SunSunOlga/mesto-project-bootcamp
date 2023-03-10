@@ -1,8 +1,17 @@
 .element {
-    margin: 0;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    min-height: 361px;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  min-height: 361px;
+  display: flex;
+  flex-direction: column;
 }
+
+@media screen and (max-width: 320px) {
+  .element {
+    max-height: 361px;
+  }
+}
+
+
+
