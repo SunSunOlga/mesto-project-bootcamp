@@ -1,5 +1,8 @@
 # Проектная работа "Mesto"
 ## Обучение на "Фронтенд-разработчкика" [ЯндексПрактикума](https://practicum.yandex.ru/)
+
+[Ссылка проекта на GitHub](https://sunsunolga.github.io/mesto-project-bootcamp/)
+
 __Описание:__
 >Mesto-интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 Создана по макету 
@@ -13,6 +16,5 @@ __Интерфейс:__
 *Git*
 
 __Инструкция по использованию:__
-git clone https://github.com/SunSunOlga/russian-travel-bootcamp.git
+git clone https://github.com/SunSunOlga/mesto-project-bootcamp.git
 
-[Ссылка проекта на GitHub](https://sunsunolga.github.io/russian-travel-bootcamp/)
