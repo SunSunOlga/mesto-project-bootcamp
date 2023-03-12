@@ -1,5 +1,5 @@
 .elemet__countries {
-  max-width: 246px;
+  min-width: 246px;
   padding: 25px 15px 31px 21px;
   display: flex;
   flex-direction: row;

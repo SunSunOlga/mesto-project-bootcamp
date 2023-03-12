@@ -1,4 +1,5 @@
 .element__caption {
+  max-width: 224px;
   margin: 0;
   font-style: normal;
   font-weight: 900;
