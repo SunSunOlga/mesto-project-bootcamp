@@ -14,11 +14,22 @@
   opacity: 0.2;
 }
 
+.form__field:focus {
+  opacity: 1;
+}
+
 .form__field:last-of-type {
   margin: 0;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
+  .form__field {
+    width: 300px;
+  }
+}
+
+
+@media screen and (max-width: 440px) {
   .form__field {
     width: 238px;
   }
