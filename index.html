@@ -23,12 +23,12 @@
       <div class="profile__info">
         <div class="profile__info-edit">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__button-edit" aria-label="Редактирование профиля" type="button"></button>
+          <button class="profile__button-edit js-edit-profile" aria-label="Редактирование профиля" type="button"></button>
         </div>
         <p class="profile__subtitle">Исследователь океана</p>
       </div>
 
-      <button class="profile__button-add" aria-label="Добавить фотографию" type="button"></button>
+      <button class="profile__button-add js-add-profile" aria-label="Добавить фотографию" type="button"></button>
     </section>
 
     <section class="elements-grid">
@@ -37,7 +37,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1088404-unsplash.png" alt="Заброшенный храм.">
         <div class="element__countries">
           <h2 class="element__caption">Карачаевск</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
 
@@ -45,7 +45,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1404681-unsplash.png" alt="Закат в горах">
         <div class="element__countries">
           <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
 
@@ -53,7 +53,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1556355-unsplash.png" alt="Лес и горы в тумане">
         <div class="element__countries">
           <h2 class="element__caption">Домбай</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
 
@@ -61,7 +61,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1404681-unsplash.png" alt="Закат в горах">
         <div class="element__countries">
           <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
 
@@ -69,7 +69,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1556355-unsplash.png" alt="Лес и горы в тумане">
         <div class="element__countries">
           <h2 class="element__caption">Домбай</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
 
@@ -77,7 +77,7 @@
         <img class="element__picture" src="./image/kirill-pershin-1088404-unsplash.png" alt="Заброшенный храм.">
         <div class="element__countries">
           <h2 class="element__caption">Карачаево-Черкессия</h2>
-          <button class="element__button-like button-like_active" aria-label="Нравится" type="button"></button>
+          <button class="element__button-like button-like_active js-like-element" aria-label="Нравится" type="button"></button>
         </div>
       </article>
     </section>
@@ -87,22 +87,23 @@
     <p class="footer__name">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <div class="popup popup_opened">
+  <div class="popup">
     <div class="popup__container">
 
-      <form class="form" name="profile-name">
+      <form class="form js-form" name="profile-name">
         <h2 class="form__title">Редактировать профиль</h2>
-        <fieldset class="form__fieldset">
-          <input class="form__field" name="name" required minlength="2" maxlength="10" type="text" placeholder="Жак-Ив Кусто">
-          <input class="form__field" name="job" required minlength="2" maxlength="300" type="text" placeholder="Исследователь океана">
-          <button class="form__button-save" aria-label="Сохранить профиль" type="submit">Сохранить</button>
-        </fieldset>
-        <button class="popup__button-close" aria-label="Закрыть профиль" type="button"></button>
+        <div class="form__fieldset">
+          <input class="form__field js-input-name" name="name" minlength="2" maxlength="10" type="text" placeholder="Жак-Ив Кусто"  required>
+          <input class="form__field js-input-job" name="job" minlength="2" maxlength="300" type="text" placeholder="Исследователь океана"  required>
+          <button class="form__button-save js-save-form" aria-label="Сохранить профиль" type="submit">Сохранить</button>
+        </div>
+        <button class="popup__button-close js-close-form"  aria-label="Закрыть профиль" type="button"></button>
       </form>
 
     </div>
   </div>
 
+<script src="./pages/script.js" defer></script>
 </body>
 
 </html>
