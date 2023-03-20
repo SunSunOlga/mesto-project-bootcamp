@@ -1,7 +1,6 @@
 
 const buttonEdit = document.querySelector('.js-edit-profile');
 const buttonAdd = document.querySelector('.profile__button-add');
-const buttonLike = document.querySelector('.js-like-element');
 const buttonClose = document.querySelector('.js-close-form');
 const inputForm = document.querySelector('.form__field');
 const blockPopup = document.querySelector('.popup');
@@ -91,24 +90,53 @@ const inputCardName = itemForm.querySelector('.js-input-text-card');
 const inputCardLink = itemForm.querySelector('.js-input-link-card');
 const itemTemplate = document.querySelector('.item-template').content.querySelector('.element');
 
-function createItem() {
+
+function likeItem(event) {
+event.target.closest('.element').classList.toggle('button-like_active', true);
+
+function deleteListener(evt) {
+  newItemCard.removeEventListener('blur', deleteListener);
+ }
+ newItemCard.addEventListener('blur', deleteListener);
+
+}
+
+function createItem(cardItem) {
 const newItemCard = itemTemplate.cloneNode(true);
 const itemName = newItemCard.querySelector('.element__caption');
 const ItemPicture = newItemCard.querySelector('.element__picture');
-itemName.textContent = inputCardName.value;
-ItemPicture
+const buttonLikeCard = newItemCard.querySelector('.js-like-element');
+//дописать кнопку удаления
+
+
+buttonLikeCard.addEventListener('click', likeItem);
+
+itemName.textContent = cardItem.name;
+ItemPicture.src = cardItem.link;
+
+// добавить слушатель на кнопку удаления
+
 return newItemCard;
+
 }
 
-function addItem(newItem, section){
- section.append(newItem);
+function addItem(newItem, section) {
+ section.prepend(newItem);
 }
 
 itemForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const newItem = createItem();
+  const newItem = createItem(inputCardName.value);
   addItem(newItem, itemSection);
+  cardClose ();
 });
+
+initialCards.forEach((arrayItem) => {
+
+    const newItem = createItem(arrayItem);
+    addItem(newItem, itemSection);
+
+  })
 
 //itemSection.append(cardNewElement);
 
