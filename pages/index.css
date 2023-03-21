@@ -16,6 +16,7 @@
 
 @import url(../blocks/elements-grid/elements-grid.css);
 @import url(../blocks/element/element.css);
+@import url(../blocks/element/__button-delete/element__button-delete.css);
 @import url(../blocks/element/__picture/element__picture.css);
 @import url(../blocks/element/__countries/element__countries.css);
 @import url(../blocks/element/__caption/element__caption.css);

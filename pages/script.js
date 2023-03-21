@@ -94,21 +94,22 @@ const itemTemplate = document.querySelector('.item-template').content.querySelec
 function likeItem(event) {
 event.target.classList.toggle('element__button-like_active');
 }
+function deleteItem(event) {
+event.target.closest('.element').remove();
+}
 
 function createItem(cardItem) {
 const newItemCard = itemTemplate.cloneNode(true);
 const itemName = newItemCard.querySelector('.element__caption');
 const ItemPicture = newItemCard.querySelector('.element__picture');
 const buttonLikeCard = newItemCard.querySelector('.js-like-element');
-//дописать кнопку удаления
+const buttonDeleteCard = newItemCard.querySelector('.js-delete-element');
 
 buttonLikeCard.addEventListener('click', likeItem);
-
+buttonDeleteCard.addEventListener('click', deleteItem)
 
 itemName.textContent = cardItem.name;
 ItemPicture.src = cardItem.link;
-
-// добавить слушатель на кнопку удаления
 
 return newItemCard;
 

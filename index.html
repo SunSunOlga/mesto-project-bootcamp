@@ -70,10 +70,20 @@
     </div>
   </div>
 
+  <div class="popup popup-photos">
+<div class="popup__container container-photo">
+  <figure class="photo__figure">
+<img class="popup__photo" alt="">
+<figcaption class="popup__figaption"></figcaption>
+<button class="popup__button-close js-close-photo" type="button" aria-label="Закрыть Фотографию">
+</figure>
+</div>
+  </div>
 
 
   <template class="item-template">
     <article class="element">
+       <button class="element__button-delete js-delete-element" aria-label="Удалить фотографию" type="button"></button>
         <img class="element__picture" src=" " alt=" ">
         <div class="element__countries">
           <h2 class="element__caption"></h2>

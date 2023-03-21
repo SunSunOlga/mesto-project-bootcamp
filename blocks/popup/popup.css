@@ -4,11 +4,13 @@
   left: 0;
   bottom: 0;
   right: 0;
-  display: none;
+  display: flex;
   visibility: hidden;
   background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
   align-items: center;
   justify-content: center;
-  transition: opacity .5s;
+  transition: visibility .25s linear, opacity .25s linear;
+  opacity: 0;
 }
+
+
