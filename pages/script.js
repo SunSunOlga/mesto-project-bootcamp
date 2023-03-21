@@ -92,13 +92,7 @@ const itemTemplate = document.querySelector('.item-template').content.querySelec
 
 
 function likeItem(event) {
-event.target.closest('.element').classList.toggle('button-like_active', true);
-
-function deleteListener(evt) {
-  newItemCard.removeEventListener('blur', deleteListener);
- }
- newItemCard.addEventListener('blur', deleteListener);
-
+event.target.classList.toggle('element__button-like_active');
 }
 
 function createItem(cardItem) {
@@ -108,8 +102,8 @@ const ItemPicture = newItemCard.querySelector('.element__picture');
 const buttonLikeCard = newItemCard.querySelector('.js-like-element');
 //дописать кнопку удаления
 
-
 buttonLikeCard.addEventListener('click', likeItem);
+
 
 itemName.textContent = cardItem.name;
 ItemPicture.src = cardItem.link;
@@ -126,7 +120,7 @@ function addItem(newItem, section) {
 
 itemForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const newItem = createItem(inputCardName.value);
+  const newItem = createItem({name: inputCardName.value, link: inputCardLink.value});
   addItem(newItem, itemSection);
   cardClose ();
 });
@@ -135,7 +129,6 @@ initialCards.forEach((arrayItem) => {
 
     const newItem = createItem(arrayItem);
     addItem(newItem, itemSection);
-
   })
 
 //itemSection.append(cardNewElement);
