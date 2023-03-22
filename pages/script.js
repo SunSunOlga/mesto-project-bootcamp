@@ -41,6 +41,7 @@ blockForm.addEventListener('submit', handleFormSubmit);
  const cardsPopup = document.querySelector('.popup-cards');
  const buttonCloseCard = document.querySelector('.js-close-cards');
  const formCards = cardsPopup.querySelector('.js-form-cards');
+
 function VisibleFormCards () {
   cardsPopup.classList.add('popup_opened');
 }
@@ -80,6 +81,12 @@ const initialCards = [
   }
 ];
 
+
+const photoPopup = document.querySelector('.popup-photos');
+const photoFigure = photoPopup.querySelector('.photo__figure');
+const photoImg = photoPopup.querySelector('.popup__photo')
+const photoFigaption = photoPopup.querySelector('.popup__figaption');
+
  const cardItem = document.querySelector('.element');
  //const cardNewElement = cardItem.cloneNode(true);
  const itemSection = document.querySelector('.elements-grid');
@@ -97,6 +104,12 @@ event.target.classList.toggle('element__button-like_active');
 function deleteItem(event) {
 event.target.closest('.element').remove();
 }
+function openPhoto() {
+  photoPopup.classList.add('popup_opened');
+}
+function closePhoto() {
+  photoPopup.classList.remove('popup_opened');
+}
 
 function createItem(cardItem) {
 const newItemCard = itemTemplate.cloneNode(true);
@@ -106,7 +119,9 @@ const buttonLikeCard = newItemCard.querySelector('.js-like-element');
 const buttonDeleteCard = newItemCard.querySelector('.js-delete-element');
 
 buttonLikeCard.addEventListener('click', likeItem);
-buttonDeleteCard.addEventListener('click', deleteItem)
+buttonDeleteCard.addEventListener('click', deleteItem);
+ItemPicture.addEventListener('click', () => openPhoto());
+buttonClose.addEventListener('click',() => closePhoto());
 
 itemName.textContent = cardItem.name;
 ItemPicture.src = cardItem.link;
@@ -133,6 +148,7 @@ initialCards.forEach((arrayItem) => {
   })
 
 //itemSection.append(cardNewElement);
+
 
 
 
