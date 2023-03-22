@@ -33,10 +33,7 @@ const photoImg = photoPopup.querySelector(".popup__photo");
 const photoFigaption = photoPopup.querySelector(".popup__figaption");
 const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
 
-/*
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-}
+
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -45,12 +42,20 @@ const closeButtons = document.querySelectorAll('.popup__button-close');
 closeButtons.forEach((button) => {
 const popup = button.closest('.popup');
 
-button.addEventListener('click', () => closePopup(popup), openPopup(popup));
+button.addEventListener('click', () => closePopup(popup));
 });
+
+/*
+const openButtons = document.querySelectorAll('.js-button-open');
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+
+  openButtons.addEventListener('click', () => openPopup(popup));
+}
 */
 
-
-//функции и слушатели для открытия/закрытия попапа профиля
+//функции и слушатели для открытия попапа профиля
 function openFormProfile() {
   blockPopupProfile.classList.add("popup_opened");
   nameInputProfile.value = nameProfileHtml.textContent;
@@ -58,11 +63,13 @@ function openFormProfile() {
 }
 buttonEditProfile.addEventListener("click", openFormProfile);
 
-function closeForm() {
-  blockPopupProfile.classList.remove("popup_opened");
-  blockFormProfile.reset();
+//открытие попапа для карточек
+function openFormCards() {
+  cardsPopup.classList.add("popup_opened");
 }
-buttonCloseProfile.addEventListener("click", closeForm);
+buttonOpenCard.addEventListener("click", openFormCards);
+
+
 //сабмит для профиля
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -72,17 +79,6 @@ function handleProfileFormSubmit(evt) {
   closeForm();
 }
 blockFormProfile.addEventListener("submit", handleProfileFormSubmit);
-
-//открытие и закрытия попапа для карточек
-function openFormCards() {
-  cardsPopup.classList.add("popup_opened");
-}
-buttonOpenCard.addEventListener("click", openFormCards);
-
-function closeCard() {
-  cardsPopup.classList.remove("popup_opened");
-}
-buttonCloseCard.addEventListener("click", closeCard);
 
 //массив
 const initialCards = [
@@ -165,7 +161,7 @@ itemForm.addEventListener("submit", function (event) {
     link: inputCardLink.value,
   });
   addItem(newItem, itemSection);
-  closeCard();
+  closePopup();
 });
 //выносим массив в секцию для карт
 initialCards.forEach((arrayItem) => {
