@@ -1,10 +1,40 @@
+//редактирование профиля
 const buttonEdit = document.querySelector(".js-edit-profile");
 const buttonAdd = document.querySelector(".profile__button-add");
 const buttonClose = document.querySelector(".js-close-form");
 const inputForm = document.querySelector(".form__field");
 const blockPopup = document.querySelector(".popup");
 const buttonSave = document.querySelector(".js-save-form");
+//модальное окно для профиля
+const blockForm = blockPopup.querySelector(".js-form");
+const nameInput = blockForm.querySelector(".js-input-name");
+const jobInput = blockForm.querySelector(".js-input-job");
+const nameProfile = document.querySelector(".js-name-profile");
+const jobProfile = document.querySelector(".js-job-profile");
+//модальное окно для карточек
+const cardsPopup = document.querySelector(".popup-cards");
+const buttonCloseCard = document.querySelector(".js-close-cards");
+const formCards = cardsPopup.querySelector(".js-form-cards");
+//template для карточек и разметка для них
+const cardItem = document.querySelector(".element");
+//const cardNewElement = cardItem.cloneNode(true);
+const itemSection = document.querySelector(".elements-grid");
 
+const itemForm = document.querySelector(".js-form-cards");
+const buttonAddCard = itemForm.querySelector(".js-save-card");
+const inputCardName = itemForm.querySelector(".js-input-text-card");
+const inputCardLink = itemForm.querySelector(".js-input-link-card");
+const itemTemplate = document
+  .querySelector(".item-template")
+  .content.querySelector(".element");
+//попап для отображения изображения
+const photoPopup = document.querySelector(".popup-photos");
+const photoFigure = photoPopup.querySelector(".photo__figure");
+const photoImg = photoPopup.querySelector(".popup__photo");
+const photoFigaption = photoPopup.querySelector(".popup__figaption");
+const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
+
+//функции и слушатели для открытия/закрытия попапа профиля
 function visibleFormProfile() {
   blockPopup.classList.add("popup_opened");
   nameInput.value = nameProfile.textContent;
@@ -17,13 +47,7 @@ function closeForm() {
   blockForm.reset();
 }
 buttonClose.addEventListener("click", closeForm);
-
-const blockForm = blockPopup.querySelector(".js-form");
-const nameInput = blockForm.querySelector(".js-input-name");
-const jobInput = blockForm.querySelector(".js-input-job");
-const nameProfile = document.querySelector(".js-name-profile");
-const jobProfile = document.querySelector(".js-job-profile");
-
+//сабмит для профиля
 function handleFormSubmit(evt) {
   evt.preventDefault();
 
@@ -31,13 +55,9 @@ function handleFormSubmit(evt) {
   jobProfile.textContent = jobInput.value;
   closeForm();
 }
-
 blockForm.addEventListener("submit", handleFormSubmit);
 
-const cardsPopup = document.querySelector(".popup-cards");
-const buttonCloseCard = document.querySelector(".js-close-cards");
-const formCards = cardsPopup.querySelector(".js-form-cards");
-
+//открытие и закрытия попапа для карточек
 function VisibleFormCards() {
   cardsPopup.classList.add("popup_opened");
 }
@@ -49,6 +69,7 @@ function cardClose() {
 }
 buttonCloseCard.addEventListener("click", cardClose);
 
+//массив
 const initialCards = [
   {
     name: "Архыз",
@@ -75,26 +96,7 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
-
-const cardItem = document.querySelector(".element");
-//const cardNewElement = cardItem.cloneNode(true);
-const itemSection = document.querySelector(".elements-grid");
-
-const itemForm = document.querySelector(".js-form-cards");
-const buttonAddCard = itemForm.querySelector(".js-save-card");
-const inputCardName = itemForm.querySelector(".js-input-text-card");
-const inputCardLink = itemForm.querySelector(".js-input-link-card");
-const itemTemplate = document
-  .querySelector(".item-template")
-  .content.querySelector(".element");
-
-const photoPopup = document.querySelector(".popup-photos");
-const photoFigure = photoPopup.querySelector(".photo__figure");
-const photoImg = photoPopup.querySelector(".popup__photo");
-const photoFigaption = photoPopup.querySelector(".popup__figaption");
-const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
-
+//функции для удаления/лайка/закрытия фото и карточки
 function likeItem(event) {
   event.target.classList.toggle("element__button-like_active");
 }
@@ -106,6 +108,7 @@ function closePhoto() {
   photoPopup.classList.remove("popup_opened");
 }
 
+//перенос объектов из модального окна и образование карточек
 function createItem(cardItem) {
   const newItemCard = itemTemplate.cloneNode(true);
   const itemName = newItemCard.querySelector(".element__caption");
@@ -113,14 +116,18 @@ function createItem(cardItem) {
   const buttonLikeCard = newItemCard.querySelector(".js-like-element");
   const buttonDeleteCard = newItemCard.querySelector(".js-delete-element");
 
-  buttonLikeCard.addEventListener("click", likeItem);
-  buttonDeleteCard.addEventListener("click", deleteItem);
-  ItemPicture.addEventListener("click", openPhoto);
-  buttonPhotoClose.addEventListener("click", closePhoto);
-
+//делаем контейнер и перенос данных
   itemName.textContent = cardItem.name;
   ItemPicture.src = cardItem.link;
 
+//слушатели на карточке
+  buttonLikeCard.addEventListener("click", likeItem);
+  buttonDeleteCard.addEventListener("click", deleteItem);
+//слушатели на фотографии
+  ItemPicture.addEventListener("click", openPhoto);
+  buttonPhotoClose.addEventListener("click", closePhoto);
+
+//открыть фото
   function openPhoto() {
     photoFigaption.textContent = cardItem.name;
     photoImg.src = cardItem.link;
@@ -133,7 +140,7 @@ function createItem(cardItem) {
 function addItem(newItem, section) {
   section.prepend(newItem);
 }
-
+//сабмит для карточки
 itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
   const newItem = createItem({
@@ -143,7 +150,7 @@ itemForm.addEventListener("submit", function (event) {
   addItem(newItem, itemSection);
   cardClose();
 });
-
+//выносим массив в секцию для карт
 initialCards.forEach((arrayItem) => {
   const newItem = createItem(arrayItem);
   addItem(newItem, itemSection);
