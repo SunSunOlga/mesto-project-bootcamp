@@ -9,8 +9,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
-  transition: visibility .25s linear, opacity .25s linear;
+  transition: visibility 0.25s linear, opacity 0.25s linear;
   opacity: 0;
 }
-
-
