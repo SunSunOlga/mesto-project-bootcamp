@@ -134,6 +134,7 @@ function createItem(cardItem) {
 //делаем контейнер и перенос данных
   itemName.textContent = cardItem.name;
   itemPicture.src = cardItem.link;
+  itemPicture.alt = cardItem.name;
 
 //слушатели на карточке
   buttonLikeCard.addEventListener("click", likeDislikeItem);
@@ -146,6 +147,7 @@ function createItem(cardItem) {
   function openPhoto() {
     photoFigaption.textContent = cardItem.name;
     photoImg.src = cardItem.link;
+    photoImg.alt = cardItem.name;
     photoPopup.classList.add("popup_opened");
   }
 
