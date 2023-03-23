@@ -33,8 +33,7 @@ const photoImg = photoPopup.querySelector(".popup__photo");
 const photoFigaption = photoPopup.querySelector(".popup__figaption");
 const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
 
-
-
+//закрытие попапов и все кнопки с крестиком
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
@@ -44,16 +43,6 @@ const popup = button.closest('.popup');
 
 button.addEventListener('click', () => closePopup(popup));
 });
-
-/*
-const openButtons = document.querySelectorAll('.js-button-open');
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-
-  openButtons.addEventListener('click', () => openPopup(popup));
-}
-*/
 
 //функции и слушатели для открытия попапа профиля
 function openFormProfile() {
@@ -69,14 +58,14 @@ function openFormCards() {
 }
 buttonOpenCard.addEventListener("click", openFormCards);
 
-
 //сабмит для профиля
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   nameProfileHtml.textContent = nameInputProfile.value;
   jobProfileHtml.textContent = jobInputProfile.value;
-  closeForm();
+  closePopup(blockPopupProfile);
+  blockFormProfile.reset();
 }
 blockFormProfile.addEventListener("submit", handleProfileFormSubmit);
 
@@ -107,16 +96,12 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-//функции для удаления/лайка-дизлайка/закрытия фото и карточки
+//функции для лайка-дизлайка/удаления фото
 function likeDislikeItem(event) {
   event.target.classList.toggle("element__button-like_active");
 }
 function deleteItem(event) {
   event.target.closest(".element").remove();
-}
-
-function closePhoto() {
-  photoPopup.classList.remove("popup_opened");
 }
 
 //перенос объектов из модального окна и образование карточек
@@ -137,7 +122,6 @@ function createItem(cardItem) {
   buttonDeleteCard.addEventListener("click", deleteItem);
 //слушатели на фотографии
   itemPicture.addEventListener("click", openPhoto);
-  buttonPhotoClose.addEventListener("click", closePhoto);
 
 //открыть фото
   function openPhoto() {
@@ -146,7 +130,6 @@ function createItem(cardItem) {
     photoImg.alt = cardItem.name;
     photoPopup.classList.add("popup_opened");
   }
-
   return newItemCard;
 }
 
@@ -161,7 +144,8 @@ itemForm.addEventListener("submit", function (event) {
     link: inputCardLink.value,
   });
   addItem(newItem, itemSection);
-  closePopup();
+  closePopup(cardsPopup);
+  itemForm.reset();
 });
 //выносим массив в секцию для карт
 initialCards.forEach((arrayItem) => {
