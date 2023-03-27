@@ -1,3 +1,5 @@
+//import './index.css';
+
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
 const buttonOpenCard = document.querySelector(".profile__button-add");
@@ -5,6 +7,7 @@ const buttonCloseProfile = document.querySelector(".js-close-form");
 const inputFormProfile = document.querySelector(".form__field");
 const blockPopupProfile = document.querySelector(".popup-profile");
 //модальное окно для профиля
+const profilePopup = document.querySelector('.popup-profile');
 const blockFormProfile = blockPopupProfile.querySelector(".js-form-profile");
 const nameInputProfile = blockFormProfile.querySelector(".js-input-name");
 const jobInputProfile = blockFormProfile.querySelector(".js-input-job");
@@ -33,6 +36,11 @@ const photoImg = photoPopup.querySelector(".popup__photo");
 const photoFigaption = photoPopup.querySelector(".popup__figaption");
 const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
 
+//открытие попапов
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
 //закрытие попапов и все кнопки с крестиком
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -46,7 +54,7 @@ button.addEventListener('click', () => closePopup(popup));
 
 //функции и слушатели для открытия попапа профиля
 function openFormProfile() {
-  blockPopupProfile.classList.add("popup_opened");
+  openPopup(profilePopup);
   nameInputProfile.value = nameProfileHtml.textContent;
   jobInputProfile.value = jobProfileHtml.textContent;
 }
@@ -54,7 +62,7 @@ buttonEditProfile.addEventListener("click", openFormProfile);
 
 //открытие попапа для карточек
 function openFormCards() {
-  cardsPopup.classList.add("popup_opened");
+  openPopup(cardsPopup);
 }
 buttonOpenCard.addEventListener("click", openFormCards);
 
