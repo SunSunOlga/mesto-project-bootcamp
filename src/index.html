@@ -45,11 +45,13 @@
   <div class="popup popup-profile">
     <div class="popup__container">
       <h2 class="form__title">Редактировать профиль</h2>
-      <form class="form js-form-profile" name="profile-name">
-        <input class="form__field js-input-name" name="name" minlength="2" maxlength="20" type="text"
-          placeholder="Жак-Ив Кусто" required>
-        <input class="form__field js-input-job" name="job" minlength="2" maxlength="300" type="text"
-          placeholder="Исследователь океана" required>
+      <form class="form js-form-profile" name="profile-name" novalidate>
+        <input class="form__field js-input-name" id="name" name="name" minlength="2" maxlength="40" type="text"
+          placeholder="Имя" required>
+      <span class="form__input-error profile-name-error" id="error-name" ></span>
+        <input class="form__field js-input-job" id="job" name="job" minlength="2" maxlength="200" type="text"
+          placeholder="О себе" required>
+      <span class="form__input-error profile-job-error" id="error-job" ></span>
         <button class="form__button-save js-save-form" aria-label="Сохранить профиль" type="submit">Сохранить</button>
       </form>
       <button class="popup__button-close js-close-form" aria-label="Закрыть профиль" type="button"></button>

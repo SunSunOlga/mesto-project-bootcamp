@@ -4,13 +4,12 @@
 const buttonEditProfile = document.querySelector(".js-edit-profile");
 const buttonOpenCard = document.querySelector(".profile__button-add");
 const buttonCloseProfile = document.querySelector(".js-close-form");
-const inputFormProfile = document.querySelector(".form__field");
 const blockPopupProfile = document.querySelector(".popup-profile");
 //модальное окно для профиля
 const profilePopup = document.querySelector('.popup-profile');
-const blockFormProfile = blockPopupProfile.querySelector(".js-form-profile");
-const nameInputProfile = blockFormProfile.querySelector(".js-input-name");
-const jobInputProfile = blockFormProfile.querySelector(".js-input-job");
+const formProfile = blockPopupProfile.querySelector(".js-form-profile");
+const nameInputProfile = formProfile.querySelector(".js-input-name");
+const jobInputProfile = formProfile.querySelector(".js-input-job");
 const nameProfileHtml = document.querySelector(".js-name-profile");
 const jobProfileHtml = document.querySelector(".js-job-profile");
 //модальное окно для карточек
@@ -72,10 +71,12 @@ function handleProfileFormSubmit(evt) {
 
   nameProfileHtml.textContent = nameInputProfile.value;
   jobProfileHtml.textContent = jobInputProfile.value;
+
+
   closePopup(blockPopupProfile);
-  blockFormProfile.reset();
+  formProfile.reset();
 }
-blockFormProfile.addEventListener("submit", handleProfileFormSubmit);
+formProfile.addEventListener("submit", handleProfileFormSubmit);
 
 //массив
 const initialCards = [
@@ -161,4 +162,57 @@ initialCards.forEach((arrayItem) => {
   addItem(newItem, itemSection);
 });
 
-//itemSection.append(cardNewElement);
+//itemSection.append(cardNewElement)
+
+/*
+//сравнение повторных полей
+const inputErrorName = formProfile.querySelector('.profile-name-error');
+const inputErrorJob = formProfile.querySelector('.profile-job-error');
+
+ function checkInputName () {
+if(nameInputProfile.value !== inputErrorName.value) {
+evt.preventDefault();
+}
+ }
+formProfile.addEventListener('submit', checkName,checkInputJob);
+
+
+function checkInputJob () {
+  if(jobInputProfile.value !== inputErrorJob.value) {
+    evt.preventDefault();
+  }
+}
+*/
+
+//найдем спан,в котором показывает ошибку/выводим текст ошибки/передали .validationMessage
+function showError (inputElement, errorMessage) {
+  const errorField = formProfile.querySelector("#error-" + inputElement.id);
+  errorField.textContent = errorMessage;
+  inputElement.classList.add('form__field_active');
+}
+
+//очищаем текст ошибки
+function hideError (inputElement) {
+  const ErrorField = formProfile.querySelector("#error-" + inputElement.id);
+  ErrorField.textContent = '';
+  inputElement.classList.remove('form__field_active');
+
+}
+//проверям-есть поле или нет
+function checkValid(inputElement) {
+   if (inputElement.validity.valid) {
+    hideError(inputElement);
+   } else {
+    showError(inputElement, inputElement.validationMessage);//взяли из инпута
+   }
+  }
+
+//проверяем инфу в момент реального времени,валидация полей/цикл,который вешает слушатель на любой инпут
+const inputFormProfile = document.querySelectorAll(".form__field");
+inputFormProfile.forEach(inputElement => {
+  inputElement.addEventListener('input', () => {
+    checkValid(inputElement)
+  })
+})
+
+
