@@ -1,12 +1,14 @@
 //import './index.css';
-
+/*
+const { config } = require("webpack");
+*/
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
 const buttonOpenCard = document.querySelector(".profile__button-add");
 const buttonCloseProfile = document.querySelector(".js-close-form");
 const blockPopupProfile = document.querySelector(".popup-profile");
 //модальное окно для профиля
-const profilePopup = document.querySelector('.popup-profile');
+const profilePopup = document.querySelector(".popup-profile");
 const formProfile = blockPopupProfile.querySelector(".js-form-profile");
 const nameInputProfile = formProfile.querySelector(".js-input-name");
 const jobInputProfile = formProfile.querySelector(".js-input-job");
@@ -37,18 +39,39 @@ const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
 
 //открытие попапов
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add("popup_opened");
+  //добавили класс попапа и обработчик Esc
+  document.addEventListener("keydown", closePopupEsc);
+  //аналогично с кликом
+  popup.addEventListener("click", closePopupClick);
+}
+
+function closePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    //находим отркеытое модальное окно,которое потом бдуем передовать аргументом
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+
+function closePopupClick(evt) {
+  if (evt.currentTarget === evt.target) {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
 }
 
 //закрытие попапов и все кнопки с крестиком
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
+  popup.removeEventListener("click", closePopupClick);
 }
-const closeButtons = document.querySelectorAll('.popup__button-close');
+const closeButtons = document.querySelectorAll(".popup__button-close");
 closeButtons.forEach((button) => {
-const popup = button.closest('.popup');
+  const popup = button.closest(".popup");
 
-button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener("click", () => closePopup(popup));
 });
 
 //функции и слушатели для открытия попапа профиля
@@ -71,7 +94,6 @@ function handleProfileFormSubmit(evt) {
 
   nameProfileHtml.textContent = nameInputProfile.value;
   jobProfileHtml.textContent = jobInputProfile.value;
-
 
   closePopup(blockPopupProfile);
   formProfile.reset();
@@ -121,18 +143,18 @@ function createItem(cardItem) {
   const buttonLikeCard = newItemCard.querySelector(".js-like-element");
   const buttonDeleteCard = newItemCard.querySelector(".js-delete-element");
 
-//делаем контейнер и перенос данных
+  //делаем контейнер и перенос данных
   itemName.textContent = cardItem.name;
   itemPicture.src = cardItem.link;
   itemPicture.alt = cardItem.name;
 
-//слушатели на карточке
+  //слушатели на карточке
   buttonLikeCard.addEventListener("click", likeDislikeItem);
   buttonDeleteCard.addEventListener("click", deleteItem);
-//слушатели на фотографии
+  //слушатели на фотографии
   itemPicture.addEventListener("click", openPhoto);
 
-//открыть фото
+  //открыть фото
   function openPhoto() {
     photoFigaption.textContent = cardItem.name;
     photoImg.src = cardItem.link;
@@ -185,34 +207,66 @@ function checkInputJob () {
 */
 
 //найдем спан,в котором показывает ошибку/выводим текст ошибки/передали .validationMessage
-function showError (inputElement, errorMessage) {
-  const errorField = formProfile.querySelector("#error-" + inputElement.id);
+function showError(formElement, inputElement, errorMessage) {
+  const errorField = formElement.querySelector("#error-" + inputElement.id);
   errorField.textContent = errorMessage;
-  inputElement.classList.add('form__field_active');
+  inputElement.classList.add("form__field_active");
 }
 
 //очищаем текст ошибки
-function hideError (inputElement) {
-  const ErrorField = formProfile.querySelector("#error-" + inputElement.id);
-  ErrorField.textContent = '';
-  inputElement.classList.remove('form__field_active');
-
+function hideError(formElement, inputElement) {
+  const ErrorField = formElement.querySelector("#error-" + inputElement.id);
+  ErrorField.textContent = "";
+  inputElement.classList.remove("form__field_active");
 }
-//проверям-есть поле или нет
-function checkValid(inputElement) {
-   if (inputElement.validity.valid) {
-    hideError(inputElement);
-   } else {
-    showError(inputElement, inputElement.validationMessage);//взяли из инпута
-   }
+//проверям-есть поле или нет/принимаем в параметры форму(проброс функции через эту)
+function checkValid(formElement, inputElement) {
+  if (inputElement.validity.valid) {
+    hideError(formElement, inputElement);
+  } else {
+    showError(formElement, inputElement, inputElement.validationMessage); //взяли из инпута
   }
+}
 
-//проверяем инфу в момент реального времени,валидация полей/цикл,который вешает слушатель на любой инпут
-const inputFormProfile = document.querySelectorAll(".form__field");
-inputFormProfile.forEach(inputElement => {
-  inputElement.addEventListener('input', () => {
-    checkValid(inputElement)
-  })
-})
+//проверем валдина форма или нет
+function toggleButton(formElement, buttonSubmitForm) {
+  if (formElement.checkValidity()) {
+    buttonSubmitForm.disabled = false;
+  } else {
+    buttonSubmitForm.disabled = true;
+  }
+}
 
+function setEventListener(formElement, config) {
+  //проверяем инфу в момент реального времени,валидация полей/цикл,который вешает слушатель на любой инпут
+  const inputList = formElement.querySelectorAll(config.inputFieldSelector);
+  const buttonSubmitForm = formElement.querySelector(
+    config.buttonSubmitSelector
+  );
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
+      checkValid(formElement, inputElement);
+      // записать функцию для активности доступа кнопки
+      toggleButton(formElement, buttonSubmitForm);
+    });
+  });
+}
+//в эту функцию примем объект с настройками(конфигуратор)
+function enableValidation(config) {
+  const formList = document.querySelectorAll(config.formSelector);
+  formList.forEach((formElement) => {
+    setEventListener(formElement, config); //пробрасываем конфиг в дргуие функции
+  });
+}
 
+//cоздадим объект для: классов/объектов/селекторов(чтобы исчезла привязка)
+const configValidation = {
+  //cелектор,по которому выбираются формы(первое свойство)
+  formSelector: ".form",
+  //чтобы выбрать все инпуты b тд
+  inputFieldSelector: ".form__field",
+  buttonSubmitSelector: ".form__button-save",
+  inputErrorClass: "form__field_active",
+};
+
+enableValidation(configValidation);

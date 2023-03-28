@@ -1,7 +1,7 @@
 .form__button-save {
   width: 358px;
   height: 50px;
-  margin: 48px 0 52px 0;
+  margin: 31px 0 52px 0;
   padding: 0;
   background-color: #000000;
   border: #000000;
@@ -15,6 +15,16 @@
   cursor: pointer;
   transition: opacity 0.8s ease;
 }
+
+.form__button-save:disabled {
+  border: 1px solid #000000;
+  background: #FFFFFF;
+  opacity: 0.2;
+  color: #000000;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
 
 .form__button-save:hover {
   opacity: 0.8;
