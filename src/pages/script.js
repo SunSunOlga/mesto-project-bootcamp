@@ -2,6 +2,7 @@
 /*
 const { config } = require("webpack");
 */
+
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
 const buttonOpenCard = document.querySelector(".profile__button-add");
@@ -207,24 +208,24 @@ function checkInputJob () {
 */
 
 //найдем спан,в котором показывает ошибку/выводим текст ошибки/передали .validationMessage
-function showError(formElement, inputElement, errorMessage) {
+function showError(formElement, inputElement, errorMessage, config) {
   const errorField = formElement.querySelector("#error-" + inputElement.id);
   errorField.textContent = errorMessage;
-  inputElement.classList.add("form__field_active");
+  inputElement.classList.add(config.inputErrorClass);
 }
 
 //очищаем текст ошибки
-function hideError(formElement, inputElement) {
+function hideError(formElement, inputElement, config) {
   const ErrorField = formElement.querySelector("#error-" + inputElement.id);
   ErrorField.textContent = "";
-  inputElement.classList.remove("form__field_active");
+  inputElement.classList.remove(config.inputErrorClass);
 }
 //проверям-есть поле или нет/принимаем в параметры форму(проброс функции через эту)
-function checkValid(formElement, inputElement) {
+function checkValid(formElement, inputElement, config) {
   if (inputElement.validity.valid) {
-    hideError(formElement, inputElement);
+    hideError(formElement, inputElement, config);
   } else {
-    showError(formElement, inputElement, inputElement.validationMessage); //взяли из инпута
+    showError(formElement, inputElement, inputElement.validationMessage, config); //взяли из инпута
   }
 }
 
@@ -245,7 +246,7 @@ function setEventListener(formElement, config) {
   );
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      checkValid(formElement, inputElement);
+      checkValid(formElement, inputElement, config);
       // записать функцию для активности доступа кнопки
       toggleButton(formElement, buttonSubmitForm);
     });
