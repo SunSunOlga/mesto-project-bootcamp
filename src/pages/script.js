@@ -1,7 +1,4 @@
-//import './index.css';
-/*
-const { config } = require("webpack");
-*/
+import './index.css';
 
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
@@ -46,7 +43,7 @@ function openPopup(popup) {
   //аналогично с кликом
   popup.addEventListener("click", closePopupClick);
 }
-
+//закрытие на эск
 function closePopupEsc(evt) {
   if (evt.key === "Escape") {
     //находим отркеытое модальное окно,которое потом бдуем передовать аргументом
@@ -54,7 +51,7 @@ function closePopupEsc(evt) {
     closePopup(openedPopup);
   }
 }
-
+//закрытие на клик
 function closePopupClick(evt) {
   if (evt.currentTarget === evt.target) {
     const openedPopup = document.querySelector(".popup_opened");
@@ -187,25 +184,6 @@ initialCards.forEach((arrayItem) => {
 
 //itemSection.append(cardNewElement)
 
-/*
-//сравнение повторных полей
-const inputErrorName = formProfile.querySelector('.profile-name-error');
-const inputErrorJob = formProfile.querySelector('.profile-job-error');
-
- function checkInputName () {
-if(nameInputProfile.value !== inputErrorName.value) {
-evt.preventDefault();
-}
- }
-formProfile.addEventListener('submit', checkName,checkInputJob);
-
-
-function checkInputJob () {
-  if(jobInputProfile.value !== inputErrorJob.value) {
-    evt.preventDefault();
-  }
-}
-*/
 
 //найдем спан,в котором показывает ошибку/выводим текст ошибки/передали .validationMessage
 function showError(formElement, inputElement, errorMessage, config) {
@@ -229,7 +207,7 @@ function checkValid(formElement, inputElement, config) {
   }
 }
 
-//проверем валдина форма или нет
+//проверем валидна форма или нет
 function toggleButton(formElement, buttonSubmitForm) {
   if (formElement.checkValidity()) {
     buttonSubmitForm.disabled = false;
