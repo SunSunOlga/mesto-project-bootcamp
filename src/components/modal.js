@@ -1,5 +1,5 @@
 import { configValidation } from "./constants";
-import { checkValid,toggleButton, showError, hideError } from "./validate";
+import { checkValid,toggleButton, showError, hideError, setEventListener} from "./validate";
 import { addItem } from '../components/section';
 import { createItem } from "./card";
 import { getProfileInfo, changeProfileInfo} from './profile'
@@ -36,8 +36,7 @@ export function closePopupEsc(evt) {
 //закрытие на клик
 export function closePopupClick(evt) {
   if (evt.currentTarget === evt.target) {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
+    closePopup(evt.currentTarget);
   }
 }
 
@@ -85,7 +84,7 @@ export function openPhoto({name, link}) {
   photoFigaption.textContent = name;
   photoImg.src = link;
   photoImg.alt = name;
-  photoPopup.classList.add("popup_opened");
+  openPopup(photoPopup);
 }
 
 const buttonOpenCard = document.querySelector(".profile__button-add");

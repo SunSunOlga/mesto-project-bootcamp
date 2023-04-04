@@ -4,7 +4,7 @@ import {toggleButton} from "./validate";
 const itemTemplate = document.querySelector(".item-template").content.querySelector(".element");
 
 //функции для лайка-дизлайка/удаления фото
-export function likeDislikeItem(event) {
+export function toggleLike(event) {
   event.target.classList.toggle("element__button-like_active");
 }
 export function deleteItem(event) {
@@ -29,7 +29,7 @@ export function createItem(cardItem) {
  }
 
   //слушатели на карточке
-  buttonLikeCard.addEventListener("click", likeDislikeItem);
+  buttonLikeCard.addEventListener("click", toggleLike);
   buttonDeleteCard.addEventListener("click", deleteItem);
   //слушатели на фотографии
   itemPicture.addEventListener("click", openItem);

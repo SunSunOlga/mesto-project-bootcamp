@@ -1,5 +1,5 @@
 import { configValidation } from "../components/constants";
-import {openPopup} from '../components/modal';
+import { openPopup } from "../components/modal";
 
 //найдем спан,в котором показывает ошибку/выводим текст ошибки/передали .validationMessage
 export function showError(formElement, inputElement, errorMessage, config) {
@@ -43,6 +43,7 @@ export function setEventListener(formElement, config) {
   const buttonSubmitForm = formElement.querySelector(
     config.buttonSubmitSelector
   );
+  toggleButton(formElement, buttonSubmitForm);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkValid(formElement, inputElement, config);
