@@ -1,12 +1,9 @@
 //попап для отображения изображения
 //const photoFigure = photoPopup.querySelector(".photo__figure");
 //const buttonPhotoClose = photoPopup.querySelector(".js-close-photo");
-//кнопка сохранить у формы места
-//const buttonAddCard = itemForm.querySelector(".js-save-card");
 //кнопка закрытия формы профиля
 //const buttonCloseProfile = document.querySelector(".js-close-form");
-//попап карточек
-//const formCards = cardsPopup.querySelector(".js-form-cards");
+
 
 //cоздадим объект для: классов/объектов/селекторов(чтобы исчезла привязка)
 export const configValidation = {

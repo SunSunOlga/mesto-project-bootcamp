@@ -1,5 +1,5 @@
-import { configValidation } from "./constants";
-import { checkValid,toggleButton, showError, hideError, setEventListener} from "./validate";
+import { configValidation} from "./constants";
+import { checkValid,toggleButton, showError, hideError, setEventListener, checkValidity} from "./validate";
 import { addItem } from '../components/section';
 import { createItem } from "./card";
 import { getProfileInfo, changeProfileInfo} from './profile'
@@ -55,13 +55,18 @@ closeButtons.forEach((button) => {
 
 //модальное окно для карточек
 const cardsPopup = document.querySelector(".popup-cards");
+//форма карточек
+const formCards = cardsPopup.querySelector(".js-form-cards");
 //template для карточек и разметка для них
 export const cardItem = document.querySelector(".element");
 //const cardNewElement = cardItem.cloneNode(true);
 
+
 const itemForm = document.querySelector(".js-form-cards");
 const inputCardName = itemForm.querySelector(".js-input-text-card");
 const inputCardLink = itemForm.querySelector(".js-input-link-card");
+//кнопка сохранить у формы места
+const buttonAddCard = itemForm.querySelector(".js-save-card");
 
 //сабмит для карточки
 itemForm.addEventListener("submit", function (event) {
@@ -90,6 +95,11 @@ export function openPhoto({name, link}) {
 const buttonOpenCard = document.querySelector(".profile__button-add");
 //открытие попапа для карточек
 export function openFormCards() {
+  if (formCards.checkValidity()) {
+    buttonAddCard.disabled = false;
+  } else {
+    buttonAddCard.disabled = true;
+  }
   openPopup(cardsPopup);
 }
 buttonOpenCard.addEventListener("click", openFormCards);
