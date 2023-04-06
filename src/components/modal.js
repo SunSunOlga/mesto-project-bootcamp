@@ -1,9 +1,16 @@
-import { configValidation} from "./constants";
-import { checkValid,toggleButton, showError, hideError, setEventListener, checkValidity} from "./validate";
-import { addItem } from '../components/section';
+import { configValidation } from "./constants";
+import {
+  checkValid,
+  toggleButton,
+  showError,
+  hideError,
+  setEventListener,
+  checkValidity,
+} from "./validate";
+import { addItem } from "../components/section";
 import { createItem } from "./card";
-import { getProfileInfo, changeProfileInfo} from './profile'
-
+import { getProfileInfo , changeProfileInfo} from "./profile";
+import { setCards, patchProfile } from "./api";
 
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
@@ -13,8 +20,6 @@ const profilePopup = document.querySelector(".popup-profile");
 const formProfile = blockPopupProfile.querySelector(".js-form-profile");
 const nameInputProfile = formProfile.querySelector(".js-input-name");
 const jobInputProfile = formProfile.querySelector(".js-input-job");
-
-
 
 //открытие попапов
 export function openPopup(popup) {
@@ -61,7 +66,6 @@ const formCards = cardsPopup.querySelector(".js-form-cards");
 export const cardItem = document.querySelector(".element");
 //const cardNewElement = cardItem.cloneNode(true);
 
-
 const itemForm = document.querySelector(".js-form-cards");
 const inputCardName = itemForm.querySelector(".js-input-text-card");
 const inputCardLink = itemForm.querySelector(".js-input-link-card");
@@ -71,13 +75,21 @@ const buttonAddCard = itemForm.querySelector(".js-save-card");
 //сабмит для карточки
 itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
-  const newItem = createItem({
-    name: inputCardName.value,
-    link: inputCardLink.value,
-  });
-  addItem(newItem);
-  closePopup(cardsPopup);
-  itemForm.reset();
+  //добавляем ф-цию,передаем туда данные из поля ввода
+  setCards({ name: inputCardName.value, link: inputCardLink.value })
+    //сервер вернул нам ответ//из него взяли name и link и создали карточку
+    .then((res) => {
+      const newItem = createItem({
+        name: res.name,
+        link: res.link,
+      });
+      addItem(newItem);
+      closePopup(cardsPopup);
+      itemForm.reset();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //попап для отображения изображения
@@ -85,7 +97,7 @@ const photoPopup = document.querySelector(".popup-photos");
 const photoImg = photoPopup.querySelector(".popup__photo");
 const photoFigaption = photoPopup.querySelector(".popup__figaption");
 //открыть фото
-export function openPhoto({name, link}) {
+export function openPhoto({ name, link }) {
   photoFigaption.textContent = name;
   photoImg.src = link;
   photoImg.alt = name;
@@ -104,12 +116,14 @@ export function openFormCards() {
 }
 buttonOpenCard.addEventListener("click", openFormCards);
 
-
-
+//открытие попапа профиля
 export function openFormProfile() {
-
-  const {name,about} = getProfileInfo();
-
+  if (formProfile.checkValidity()) {
+    buttonAddCard.disabled = false;
+  } else {
+    buttonAddCard.disabled = true;
+  }
+  const { name, about } = getProfileInfo();
   nameInputProfile.value = name;
   jobInputProfile.value = about;
 
@@ -117,13 +131,27 @@ export function openFormProfile() {
 }
 buttonEditProfile.addEventListener("click", openFormProfile);
 
+const buttonSubmitProfile = formProfile.querySelector(".js-save-form");
 
 //сабмит для профиля
 export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  changeProfileInfo({name: nameInputProfile.value, about: jobInputProfile.value})
+  loadingButtonCaption(buttonSubmitProfile, "Сохранение...");
 
-  closePopup(blockPopupProfile);
-  formProfile.reset();
+  patchProfile({name: nameInputProfile.value, about: jobInputProfile.value})
+    .then((user) => {
+      changeProfileInfo(user);
+      closePopup(blockPopupProfile);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {loadingButtonCaption(buttonSubmitProfile,"Сохранить")
+})
 }
 formProfile.addEventListener("submit", handleProfileFormSubmit);
+
+//меняем текст у кнокпи
+export function loadingButtonCaption(button, caption) {
+  button.textContent = caption;
+}
