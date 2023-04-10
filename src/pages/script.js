@@ -6,7 +6,7 @@ import { enableValidation } from "../components/validate";
 
 import { createItem, buttonDeleteCard, deleteItem } from "../components/card";
 
-import { addItem } from "../components/section";
+import { addItem, itemSection } from "../components/section";
 
 import {
   getCards,
@@ -57,7 +57,7 @@ initialInfo();
 //включаем валидации,настройки передаем при вызове
 enableValidation(configValidation);
 
-//используем модуль
+/*  ///используем модуль
 getCards()
   //нужно подождать данные прежде,чем получить-выполнить действие только, когда сервер вернет данные
   .then((res) => {
@@ -70,7 +70,7 @@ getCards()
       });
       addItem(newItem);
     });
-  });
+  });  */
 
 /* //обработка необработанного отклонения промисов
 window.addEventListener("unhandledrejection", (evt) => {

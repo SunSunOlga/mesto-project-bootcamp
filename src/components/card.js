@@ -42,14 +42,6 @@ export function createItem(card, user) {
   }
 
   if (user["_id"] === card.owner["_id"]) {
-    addItem({
-      name: card.name,
-      link: card.link,
-      objectLikes: card["likes"],
-      idCard: card["_id"],
-      ownerCard: card["owner"],
-      authorizedServer: user,
-    });
     buttonDeleteCard.addEventListener("click", (evt) => {
       const currentCard = evt.target
         .closest(".element")
@@ -62,8 +54,6 @@ export function createItem(card, user) {
 
   //слушатели на карточке
   buttonLikeCard.addEventListener("click", toggleLike);
-  //используем стрелочную функцию и передаем айтем с айди//в параметры добавили 2ой параметр -наш готовый элемент
-  buttonDeleteCard.addEventListener("click", deleteItem(card, newItemCard));
   //слушатели на фотографии
   itemPicture.addEventListener("click", openItem);
 
