@@ -21,6 +21,7 @@
 @import url(../blocks/element/__countries/element__countries.css);
 @import url(../blocks/element/__caption/element__caption.css);
 @import url(../blocks/element/__button-like/element__button-like.css);
+@import url(../blocks/element/__number-like/element__number-like.css);
 @import url(../blocks/element/__button-like/_active/element__button-like_active.css);
 
 @import url(../blocks/footer/footer.css);

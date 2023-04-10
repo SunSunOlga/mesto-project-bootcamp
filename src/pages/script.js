@@ -38,24 +38,14 @@ export function initialInfo() {
 
       //cейчас получаем карточку
       cards.reverse().forEach((card) => {
-        if (user["_id"] === card.owner["_id"]) {
-          addItem({
-            name: card.name,
-            link: card.link,
-            objectLikes: card["likes"],
-            idCard: card["_id"],
-            ownerCard: card["owner"],
-            authorizedServer: user,
-          });
-          buttonDeleteCard.addEventListener("click", (evt) => {
-            const currentCard = evt.target
-              .closest(".element")
-              .querySelector(".element__picture").id;
-            deleteItem(currentCard).then(deleteItem(evt)).catch(console.dir);
-          });
-        } else {
-          buttonDeleteCard.remove();
-        }
+        addItem({
+          name: card.name,
+          link: card.link,
+          objectLikes: card["likes"],
+          idCard: card["_id"],
+          ownerCard: card["owner"],
+          authorizedServer: user,
+        });
       });
     })
     .catch((err) => {
