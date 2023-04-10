@@ -38,7 +38,7 @@ export const setCards = ({name,link}) => {
     .then(checkResponse);
 }
 
-/* //для удаления нужно id,чтобы понимать что именно удалять
+ //для удаления нужно id,чтобы понимать что именно удалять
 export const deleteCards = (id) => {
   //если операции с одним каким-то элементом ,то в путь добавляем его id
   return fetch(`${config.baseUrl}/cards/${id}`, {
@@ -47,7 +47,7 @@ export const deleteCards = (id) => {
   })
   .then(checkResponse)
 }
- */
+ 
 
 export const getProfileServer = () => {
   return fetch(`${config.baseUrl}/users/me`, {

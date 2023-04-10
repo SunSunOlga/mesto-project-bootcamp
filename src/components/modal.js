@@ -76,12 +76,13 @@ const buttonAddCard = itemForm.querySelector(".js-save-card");
 itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
   //добавляем ф-цию,передаем туда данные из поля ввода
-  setCards({ name: inputCardName.value, link: inputCardLink.value })
+
+ setCards({ name: inputCardName.value, link: inputCardLink.value })
     //сервер вернул нам ответ//из него взяли name и link и создали карточку
-    .then((res) => {
+    .then((card) => {
       const newItem = createItem({
-        name: res.name,
-        link: res.link,
+        name: card.name,
+        link: card.link,
       });
       addItem(newItem);
       closePopup(cardsPopup);

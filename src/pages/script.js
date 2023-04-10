@@ -4,7 +4,7 @@ import { configValidation } from "../components/constants";
 
 import { enableValidation } from "../components/validate";
 
-import { createItem } from "../components/card";
+import { createItem, buttonDeleteCard, deleteItem } from "../components/card";
 
 import { addItem } from "../components/section";
 
@@ -23,21 +23,46 @@ initialCards.forEach((arrayItem) => {
   addItem(newItem);
 }); */
 
-/* function initialInfo() {
+//нам нужно,что когда мы получили карточки,то профиль уже был.тк объект,который приходит с карточек,то нам нужно отличать свои карточки от чужих//будем сравнивать owner,id с id текущего пользователя
+export function initialInfo() {
   //показываем,что оба запроса выполнились(успешно)//в массиве мб неограниченное кол-во запросов,которые будут выполняться в промисе
   //из запросов функций создаем массив
+  //деструктиризация кода-когда сложный объект разбираешь на части сразу присваивая значения отдельным переменным
+  //ф-ция,которая возвращает промис,потому вызыввем ф-ции внутри
   Promise.all([getCards(), getProfileServer()])
     //два результата также в массиве
-    .then(([res, user]) => {
-      const { name, about, __id } = user;
+    //then это функция(лямбда)
+    .then(([cards, user]) => {
+      const { name, about, _id } = user;
       changeProfileInfo(user);
-      setCards(res);
+
+      //cейчас получаем карточку
+      cards.reverse().forEach((card) => {
+        if (user["_id"] === card.owner["_id"]) {
+          addItem({
+            name: card.name,
+            link: card.link,
+            objectLikes: card["likes"],
+            idCard: card["_id"],
+            ownerCard: card["owner"],
+            authorizedServer: user,
+          });
+          buttonDeleteCard.addEventListener("click", (evt) => {
+            const currentCard = evt.target
+              .closest(".element")
+              .querySelector(".element__picture").id;
+            deleteItem(currentCard).then(deleteItem(evt)).catch(console.dir);
+          });
+        } else {
+          buttonDeleteCard.remove();
+        }
+      });
     })
     .catch((err) => {
       console.log(err);
     });
 }
-initialInfo(); */
+initialInfo();
 
 //включаем валидации,настройки передаем при вызове
 enableValidation(configValidation);
@@ -56,3 +81,11 @@ getCards()
       addItem(newItem);
     });
   });
+
+/* //обработка необработанного отклонения промисов
+window.addEventListener("unhandledrejection", (evt) => {
+  console.error("Необработанная ошибка.\nМесто возникновения: ");
+  console.error(evt.promise);
+  console.error("Информация об ошибке:");
+  console.error(evt.reason);
+}); */
