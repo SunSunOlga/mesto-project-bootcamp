@@ -17,11 +17,9 @@ import {
 
 import { changeProfileInfo, getProfileInfo } from "../components/profile";
 
-/* //выносим массив в секцию для карт
-initialCards.forEach((arrayItem) => {
-  const newItem = createItem(arrayItem);
-  addItem(newItem);
-}); */
+
+
+let userId;
 
 //нам нужно,что когда мы получили карточки,то профиль уже был.тк объект,который приходит с карточек,то нам нужно отличать свои карточки от чужих//будем сравнивать owner,id с id текущего пользователя
 export function initialInfo() {
@@ -32,10 +30,10 @@ export function initialInfo() {
   Promise.all([getCards(), getProfileServer()])
     //два результата также в массиве
     //then это функция(лямбда)
-    .then(([cards, user]) => {
+    .then(([cards, user, userId]) => {
       const { name, about, _id } = user;
+      userId = user._id;
       changeProfileInfo(user);
-
       //cейчас получаем карточку
       cards.reverse().forEach((card) => {
         addItem({
@@ -57,7 +55,9 @@ initialInfo();
 //включаем валидации,настройки передаем при вызове
 enableValidation(configValidation);
 
-////используем модуль
+
+
+/* ////используем модуль
 getCards()
   //нужно подождать данные прежде,чем получить-выполнить действие только, когда сервер вернет данные
   .then((res) => {
@@ -71,6 +71,14 @@ getCards()
       addItem(newItem);
     });
   });
+ */
+
+
+/* //выносим массив в секцию для карт
+initialCards.forEach((arrayItem) => {
+  const newItem = createItem(arrayItem);
+  addItem(newItem);
+}); */
 
 /* //обработка необработанного отклонения промисов
 window.addEventListener("unhandledrejection", (evt) => {

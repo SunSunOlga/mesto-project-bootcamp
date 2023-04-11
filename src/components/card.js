@@ -7,6 +7,8 @@ import {
 } from "./modal";
 import { toggleButton } from "./validate";
 import { deleteCards } from "./api";
+import { userId } from "../pages/script";
+
 
 const itemTemplate = document
   .querySelector(".item-template")
@@ -23,7 +25,7 @@ export function deleteItem(event) {
 }
 
 //перенос объектов из модального окна и образование карточек
-export function createItem(card) {
+export function createItem(card, userId) {
   const newItemCard = itemTemplate.cloneNode(true);
   const itemName = newItemCard.querySelector(".element__caption");
   const itemPicture = newItemCard.querySelector(".element__picture");

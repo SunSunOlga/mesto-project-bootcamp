@@ -77,19 +77,15 @@ itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
   //добавляем ф-цию,передаем туда данные из поля ввода
 
-const freshCard = ({ name: inputCardName.value, link: inputCardLink.value });
-
-Promise.all([ setCards(freshCard), getProfileServer()])
+ setCards({ name: inputCardName.value, link: inputCardLink.value })
     //сервер вернул нам ответ//из него взяли name и link и создали карточку
-    .then(([card, user]) => {
-      const {name, about, _id} = user;
-      addItem( { name: card.name,
+    .then((card, userId ) => {
+      userId = user._id;
+      const newItem = createItem({
+        name: card.name,
         link: card.link,
-        objectLikes: card["likes"],
-        idCard: card["_id"],
-        ownerCard: card["owner"],
-        authorizedServer: user});
-        
+      });
+      addItem(newItem);
       closePopup(cardsPopup);
       itemForm.reset();
     })

@@ -25,15 +25,12 @@ export const getCards = () => {
   .then(checkResponse)
 }
 
-export const setCards = ({name,link}) => {
+export const setCards = (data) => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
     method: "POST",
-    body: JSON.stringify ({
+    body: JSON.stringify(data)
       //чтобы передеать данные нам нужны обратные действия,т.е нужно наш объект преобразовать в строку(тот объект,который сервер поймет)
-      name: name,
-      link: link,
-    })
   })
     .then(checkResponse);
 }
@@ -47,7 +44,7 @@ export const deleteCards = (id) => {
   })
   .then(checkResponse)
 }
- 
+
 
 export const getProfileServer = () => {
   return fetch(`${config.baseUrl}/users/me`, {
