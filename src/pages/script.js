@@ -17,6 +17,8 @@ import {
 
 import { changeProfileInfo, getProfileInfo } from "../components/profile";
 
+import {cardItem } from "../components/modal"
+
 
 
 let userId;
@@ -30,20 +32,13 @@ export function initialInfo() {
   Promise.all([getCards(), getProfileServer()])
     //два результата также в массиве
     //then это функция(лямбда)
-    .then(([cards, user, userId]) => {
-      const { name, about, _id } = user;
+    .then(([cards, user]) => {
+      const { _id } = user;
       userId = user._id;
       changeProfileInfo(user);
       //cейчас получаем карточку
       cards.reverse().forEach((card) => {
-        addItem({
-          name: card.name,
-          link: card.link,
-          objectLikes: card["likes"],
-          idCard: card["_id"],
-          ownerCard: card["owner"],
-          authorizedServer: user,
-        });
+        addItem(createItem(card, userId));
       });
     })
     .catch((err) => {

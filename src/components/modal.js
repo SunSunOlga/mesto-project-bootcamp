@@ -62,9 +62,6 @@ closeButtons.forEach((button) => {
 const cardsPopup = document.querySelector(".popup-cards");
 //форма карточек
 const formCards = cardsPopup.querySelector(".js-form-cards");
-//template для карточек и разметка для них
-export const cardItem = document.querySelector(".element");
-//const cardNewElement = cardItem.cloneNode(true);
 
 const itemForm = document.querySelector(".js-form-cards");
 const inputCardName = itemForm.querySelector(".js-input-text-card");
@@ -80,11 +77,7 @@ itemForm.addEventListener("submit", function (event) {
  setCards({ name: inputCardName.value, link: inputCardLink.value })
     //сервер вернул нам ответ//из него взяли name и link и создали карточку
     .then((card, userId ) => {
-      userId = user._id;
-      const newItem = createItem({
-        name: card.name,
-        link: card.link,
-      });
+      const newItem = createItem(card, userId);
       addItem(newItem);
       closePopup(cardsPopup);
       itemForm.reset();

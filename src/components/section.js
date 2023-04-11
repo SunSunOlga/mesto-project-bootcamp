@@ -1,6 +1,6 @@
 export const itemSection = document.querySelector(".elements-grid");
 
-export function addItem(createItem(card, userId)) {
-  itemSection.prepend(card);
+export function addItem(newItem) {
+  itemSection.prepend(newItem);
 }
- import { createItem } from "./card";
+
