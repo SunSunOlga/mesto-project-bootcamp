@@ -23,7 +23,7 @@ export function deleteItem(event) {
 }
 
 //перенос объектов из модального окна и образование карточек
-export function createItem(card, user) {
+export function createItem(card) {
   const newItemCard = itemTemplate.cloneNode(true);
   const itemName = newItemCard.querySelector(".element__caption");
   const itemPicture = newItemCard.querySelector(".element__picture");
