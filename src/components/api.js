@@ -63,6 +63,22 @@ export function patchProfile(data) {
 .then(checkResponse)
 }
 
+export function setLike(id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    headers: config.headers,
+    method: "PUT",
+})
+.then(checkResponse)
+}
+
+export function deleteLike(id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    headers: config.headers,
+    method: "DELETE",
+})
+.then(checkResponse)
+}
+
 
 
 
