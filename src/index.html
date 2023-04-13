@@ -18,7 +18,7 @@
   <main>
     <section class="profile">
       <img class="profile__image" src="<%=require('./image/image.png')%>" alt="Жак-Ив Кусто фото у моря.">
-
+        <button class="profile__button-avatar"></button>
       <div class="profile__info">
         <div class="profile__info-edit">
           <h1 class="profile__title js-name-profile">Жак-Ив Кусто</h1>
@@ -60,7 +60,7 @@
   <div class="popup popup-cards">
     <div class="popup__container container-cards">
       <h2 class="form__title form__title-card">Новое место</h2>
-      <form class="form js-form-cards" name="profile-name">
+      <form class="form js-form-cards" name="card-content" novalidate>
         <input class="form__field js-input-text-card"  id="title" name="nameCard" minlength="2" maxlength="20" type="text"
           placeholder="Название" required>
         <span class="form__input-error profile-name-error" id="error-title"></span>
@@ -73,6 +73,19 @@
     </div>
   </div>
 
+  <div class="popup popup-avatar">
+    <div class="popup__container container-avatar">
+      <h2 class="form__title form__title-avatar">Обновить аватар</h2>
+      <form class="form js-form-avatar" name="icon" novalidate>
+        <input class="form__field js-input-link-avatar"  id="avatar" name="avatarProfile" type="url"
+          placeholder="Ссылка на фото" required>
+        <span class="form__input-error profile-avatar-error" id="error-avatar"></span>
+        <button class="form__button-save js-save-avatar" aria-label="Сохранить аватар" type="submit">Создать</button>
+      </form>
+      <button class="popup__button-close js-close-avatar" aria-label="Закрыть профиль" type="button"></button>
+    </div>
+  </div>
+
   <div class="popup popup-photos">
     <figure class="photo__figure">
       <img class="popup__photo" alt="">
@@ -80,8 +93,6 @@
       <button class="popup__button-close js-close-photo" type="button" aria-label="Закрыть Фотографию"></button>
     </figure>
   </div>
-
-
 
   <template class="item-template">
     <article class="element">

@@ -13,11 +13,12 @@ import {
   setCards,
   getProfileServer,
   patchProfile,
+  getAvatarServer
 } from "../components/api";
 
-import { changeProfileInfo, getProfileInfo } from "../components/profile";
+import { changeProfileInfo, getProfileInfo, setAvatar } from "../components/profile";
 
-import {cardItem } from "../components/modal"
+import {cardItem, openFormAvatar} from "../components/modal"
 
 
 
@@ -29,13 +30,14 @@ export function initialInfo() {
   //из запросов функций создаем массив
   //деструктиризация кода-когда сложный объект разбираешь на части сразу присваивая значения отдельным переменным
   //ф-ция,которая возвращает промис,потому вызыввем ф-ции внутри
-  Promise.all([getCards(), getProfileServer()])
+  Promise.all([getCards(), getProfileServer(), getAvatarServer()])
     //два результата также в массиве
     //then это функция(лямбда)
-    .then(([cards, user]) => {
+    .then(([cards, user, avatar]) => {
       const { _id } = user;
       userId = user._id;
       changeProfileInfo(user);
+      setAvatar(avatar);
       //cейчас получаем карточку
       cards.reverse().forEach((card) => {
         addItem(createItem(card, userId));

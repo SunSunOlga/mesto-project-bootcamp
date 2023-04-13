@@ -22,7 +22,7 @@ export function deleteItem(event) {
 export function createItem(card, userId) {
   //template для карточек и разметка для них
   const cardItem = document.querySelector(".element");
-  //const cardNewElement = cardItem.cloneNode(true);
+  //const cardNewElement = itemTemplate.cloneNode(true);
   const newItemCard = itemTemplate.cloneNode(true);
   const itemName = newItemCard.querySelector(".element__caption");
   const itemPicture = newItemCard.querySelector(".element__picture");
@@ -46,11 +46,9 @@ export function createItem(card, userId) {
 
   if (userId === card.owner["_id"]) {
     buttonDeleteCard.addEventListener("click", (evt) => {
-      const currentCard = evt.target
-        .closest(".element")
-        .querySelector(".element__picture").id;
-      deleteCards(currentCard).then(deleteItem(evt)).catch(console.dir);
-    });
+      const currentIdCard = evt.target.closest(".element").querySelector(".element__picture").id;
+      deleteCards(currentIdCard).then(deleteItem(evt)).catch(console.dir);
+    })
   } else {
     buttonDeleteCard.remove();
   }

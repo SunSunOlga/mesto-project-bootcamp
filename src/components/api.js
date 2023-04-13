@@ -79,6 +79,23 @@ export function deleteLike(id) {
 .then(checkResponse)
 }
 
+export function getAvatarServer() {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    headers: config.headers,
+    method: "GET",
+})
+.then(checkResponse)
+}
+
+export function patchAvatar(data) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    headers: config.headers,
+    method: "PATCH",
+    body: JSON.stringify(data)
+})
+.then(checkResponse)
+}
+
 
 
 

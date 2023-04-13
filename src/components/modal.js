@@ -9,7 +9,7 @@ import {
 } from "./validate";
 import { addItem } from "../components/section";
 import { createItem } from "./card";
-import { getProfileInfo , changeProfileInfo} from "./profile";
+import { getProfileInfo, changeProfileInfo, setAvatar } from "./profile";
 import { setCards, patchProfile } from "./api";
 
 //редактирование профиля
@@ -74,9 +74,9 @@ itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
   //добавляем ф-цию,передаем туда данные из поля ввода
 
- setCards({ name: inputCardName.value, link: inputCardLink.value })
+  setCards({ name: inputCardName.value, link: inputCardLink.value })
     //сервер вернул нам ответ//из него взяли name и link и создали карточку
-    .then((card, userId ) => {
+    .then((card, userId) => {
       const newItem = createItem(card, userId);
       addItem(newItem);
       closePopup(cardsPopup);
@@ -133,7 +133,7 @@ export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   loadingButtonCaption(buttonSubmitProfile, "Сохранение...");
 
-  patchProfile({name: nameInputProfile.value, about: jobInputProfile.value})
+  patchProfile({ name: nameInputProfile.value, about: jobInputProfile.value })
     .then((user) => {
       changeProfileInfo(user);
       closePopup(blockPopupProfile);
@@ -141,8 +141,9 @@ export function handleProfileFormSubmit(evt) {
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => {loadingButtonCaption(buttonSubmitProfile,"Сохранить")
-})
+    .finally(() => {
+      loadingButtonCaption(buttonSubmitProfile, "Сохранить");
+    });
 }
 formProfile.addEventListener("submit", handleProfileFormSubmit);
 
@@ -150,3 +151,41 @@ formProfile.addEventListener("submit", handleProfileFormSubmit);
 export function loadingButtonCaption(button, caption) {
   button.textContent = caption;
 }
+
+//редактирование аватара
+const avatarPopup = document.querySelector(".popup-avatar");
+const formAvatar = avatarPopup.querySelector(".js-form-avatar");
+const inputAvatar = formAvatar.querySelector(".js-input-link-avatar");
+const buttonChangeAvatar = document.querySelector(".profile__button-avatar");
+const buttonSaveAvatar = formAvatar.querySelector(".js-save-avatar");
+
+//открытие попапа аватара
+export function openFormAvatar() {
+  if (formAvatar.checkValidity()) {
+    buttonAddCard.disabled = false;
+  } else {
+    buttonAddCard.disabled = true;
+  }
+  openPopup(avatarPopup);
+}
+buttonChangeAvatar.addEventListener("click", openFormAvatar);
+
+//сабмит для аватара
+function handleAvatarFormSubmit(event) {
+  event.preventDefault();
+  loadingButtonCaption(buttonSaveAvatar, "Сохранение...");
+
+  patchAvatar({ avatar: inputAvatar.value })
+    .then((avatar) => {
+      setAvatar(avatar);
+      closePopup(blockPopupProfile);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      loadingButtonCaption(buttonSaveAvatar, "Сохранить");
+    });
+}
+
+buttonSaveAvatar.addEventListener("submit", handleAvatarFormSubmit);
