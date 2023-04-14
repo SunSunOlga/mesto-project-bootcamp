@@ -16,5 +16,5 @@ __Интерфейс:__
 *Git*
 
 __Ссылка на сайт:__
-Cкрипт dev
+ **https://sunsunolga.github.io/mesto-project-bootcamp/**
 
