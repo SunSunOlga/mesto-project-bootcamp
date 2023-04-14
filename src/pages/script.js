@@ -13,14 +13,16 @@ import {
   setCards,
   getProfileServer,
   patchProfile,
-  getAvatarServer
+  getAvatarServer,
 } from "../components/api";
 
-import { changeProfileInfo, getProfileInfo, setAvatar } from "../components/profile";
+import {
+  changeProfileInfo,
+  getProfileInfo,
+  setAvatar,
+} from "../components/profile";
 
-import {cardItem, openFormAvatar} from "../components/modal"
-
-
+import { cardItem, openFormAvatar } from "../components/modal";
 
 let userId;
 
@@ -30,14 +32,14 @@ export function initialInfo() {
   //из запросов функций создаем массив
   //деструктиризация кода-когда сложный объект разбираешь на части сразу присваивая значения отдельным переменным
   //ф-ция,которая возвращает промис,потому вызыввем ф-ции внутри
-  Promise.all([getCards(), getProfileServer(), getAvatarServer()])
+  Promise.all([getCards(), getProfileServer()])
     //два результата также в массиве
     //then это функция(лямбда)
-    .then(([cards, user, avatar]) => {
+    .then(([cards, user]) => {
       const { _id } = user;
       userId = user._id;
       changeProfileInfo(user);
-      setAvatar(avatar);
+      setAvatar(user);
       //cейчас получаем карточку
       cards.reverse().forEach((card) => {
         addItem(createItem(card, userId));
@@ -51,8 +53,6 @@ initialInfo();
 
 //включаем валидации,настройки передаем при вызове
 enableValidation(configValidation);
-
-
 
 /* ////используем модуль
 getCards()
@@ -69,7 +69,6 @@ getCards()
     });
   });
  */
-
 
 /* //выносим массив в секцию для карт
 initialCards.forEach((arrayItem) => {

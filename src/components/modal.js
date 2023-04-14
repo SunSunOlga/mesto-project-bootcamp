@@ -10,7 +10,8 @@ import {
 import { addItem } from "../components/section";
 import { createItem } from "./card";
 import { getProfileInfo, changeProfileInfo, setAvatar } from "./profile";
-import { setCards, patchProfile } from "./api";
+import { setCards, patchProfile, patchAvatar } from "./api";
+
 
 //редактирование профиля
 const buttonEditProfile = document.querySelector(".js-edit-profile");
@@ -178,7 +179,7 @@ function handleAvatarFormSubmit(event) {
   patchAvatar({ avatar: inputAvatar.value })
     .then((avatar) => {
       setAvatar(avatar);
-      closePopup(blockPopupProfile);
+      closePopup(avatarPopup);
     })
     .catch((err) => {
       console.log(err);
@@ -188,4 +189,4 @@ function handleAvatarFormSubmit(event) {
     });
 }
 
-buttonSaveAvatar.addEventListener("submit", handleAvatarFormSubmit);
+formAvatar.addEventListener("submit", handleAvatarFormSubmit);

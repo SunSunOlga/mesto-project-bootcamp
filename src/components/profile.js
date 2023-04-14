@@ -15,6 +15,6 @@ export function changeProfileInfo({name,about}) {
 
   }
 
-  export function setAvatar(avatar) {
+  export function setAvatar({avatar}) {
     avatarProfile.src = avatar;
   }
