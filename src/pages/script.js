@@ -14,6 +14,7 @@ import {
   getProfileServer,
   patchProfile,
   getAvatarServer,
+  patchAvatar
 } from "../components/api";
 
 import {
@@ -78,11 +79,11 @@ const buttonAddCard = itemForm.querySelector(".js-save-card");
 //сабмит для карточки
 itemForm.addEventListener("submit", function (event) {
   event.preventDefault();
-  //добавляем ф-цию,передаем туда данные из поля ввода
   loadingButtonCaption(buttonAddCard, "Создание...");
+   //добавляем ф-цию,передаем туда данные из поля ввода
   setCards({ name: inputCardName.value, link: inputCardLink.value })
     //сервер вернул нам ответ//из него взяли name и link и создали карточку
-    .then((card, userId) => {
+    .then((card) => {
       const newItem = createItem(card, userId);
       addItem(newItem);
       closePopup(cardsPopup);
