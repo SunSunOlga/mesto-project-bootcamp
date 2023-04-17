@@ -2,12 +2,11 @@ import {
   openFormCards,
   closePopup,
   itemSection,
-  openPhoto,
   cardItem,
 } from "./modal";
 import { toggleButton } from "./validate";
 import { deleteCards, deleteLike, setLike } from "./api";
-import { userId, initialInfo } from "../pages/script";
+import { userId, initialInfo,openPhoto } from "../pages/script";
 
 const itemTemplate = document
   .querySelector(".item-template")
@@ -44,10 +43,13 @@ export function createItem(card, userId) {
     openPhoto({ name: evt.target.alt, link: evt.target.src });
   }
 
-  if (userId === card.owner["_id"]) {
+  if (userId === card.owner._id) {
     buttonDeleteCard.addEventListener("click", (evt) => {
-      const currentIdCard = evt.target.closest(".element").querySelector(".element__picture").id;
-      deleteCards(currentIdCard).then(deleteItem(evt)).catch(console.dir);
+      deleteCards(card._id)
+      .then(deleteItem(evt))
+      .catch((err) => {
+        console.log(err);
+      })
     })
   } else {
     buttonDeleteCard.remove();
